@@ -1,0 +1,23 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /src
+COPY backend/SchoolManagement.sln ./
+COPY backend/src/Api/Api.csproj src/Api/
+COPY backend/src/Shared/Shared.csproj src/Shared/
+COPY backend/src/Infrastructure/Infrastructure.csproj src/Infrastructure/
+COPY backend/src/Modules/Identity/Identity.csproj src/Modules/Identity/
+COPY backend/src/Modules/Reference/Reference.csproj src/Modules/Reference/
+COPY backend/src/Modules/Student/Student.csproj src/Modules/Student/
+COPY backend/src/Modules/Academic/Academic.csproj src/Modules/Academic/
+COPY backend/src/Modules/Behaviour/Behaviour.csproj src/Modules/Behaviour/
+COPY backend/src/Modules/Finance/Finance.csproj src/Modules/Finance/
+COPY backend/src/Modules/Operations/Operations.csproj src/Modules/Operations/
+RUN dotnet restore src/Api/Api.csproj
+COPY backend/ .
+RUN dotnet publish src/Api/Api.csproj -c Release -o /app/publish --no-restore
+
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/publish .
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
+ENTRYPOINT ["dotnet", "Api.dll"]

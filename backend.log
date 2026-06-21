@@ -1,0 +1,78 @@
+Using launch settings from D:\SchoolManagement\backend\src\Api\Properties\launchSettings.json...
+Building...
+[16:09:45 WRN] Entity 'StudentEntity' has a global query filter defined and is the required end of a relationship with the entity 'Address'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+[16:09:45 WRN] Entity 'StudentEntity' has a global query filter defined and is the required end of a relationship with the entity 'StudentDocument'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+[16:09:45 WRN] Entity 'Parent' has a global query filter defined and is the required end of a relationship with the entity 'StudentParent'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+[16:09:45 WRN] Entity 'StudentEntity' has a global query filter defined and is the required end of a relationship with the entity 'StudentStatusHistory'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+[16:09:45 INF] Executed DbCommand (20ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+[16:09:45 INF] Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL,
+    CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
+);
+[16:09:45 INF] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+LOCK TABLE "__EFMigrationsHistory" IN ACCESS EXCLUSIVE MODE
+[16:09:45 INF] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+[16:09:45 INF] No migrations were applied. The database is already up to date.
+[16:09:46 INF] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM roles AS r)
+[16:09:46 INF] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM schools AS s)
+[16:09:46 INF] User profile is available. Using 'C:\Users\LENOVO\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[16:09:46 INF] Now listening on: http://localhost:5296
+[16:09:46 INF] Application started. Press Ctrl+C to shut down.
+[16:09:46 INF] Hosting environment: Development
+[16:09:46 INF] Content root path: D:\SchoolManagement\backend\src\Api
+[16:10:22 INF] Request starting HTTP/1.1 GET http://localhost:5296/swagger/index.html - null null
+[16:10:22 INF] HTTP GET /swagger/index.html responded 200 in 80.7024 ms
+[16:10:22 INF] Request finished HTTP/1.1 GET http://localhost:5296/swagger/index.html - 200 null text/html;charset=utf-8 148.7571ms
+[16:10:26 INF] Request starting HTTP/1.1 GET http://localhost:5296/swagger/index.html - null null
+[16:10:26 INF] HTTP GET /swagger/index.html responded 200 in 3.1382 ms
+[16:10:26 INF] Request finished HTTP/1.1 GET http://localhost:5296/swagger/index.html - 200 null text/html;charset=utf-8 4.8856ms
+[16:10:26 INF] Request starting HTTP/1.1 GET http://localhost:5296/health - null null
+[16:10:26 INF] Executing endpoint 'HTTP: GET /health'
+[16:10:26 INF] Setting HTTP status code 200.
+[16:10:26 INF] Writing value of type '<>f__AnonymousType0`2' as Json.
+[16:10:26 INF] Executed endpoint 'HTTP: GET /health'
+[16:10:26 INF] HTTP GET /health responded 200 in 35.1501 ms
+[16:10:26 INF] Request finished HTTP/1.1 GET http://localhost:5296/health - 200 null application/json; charset=utf-8 35.7292ms
+[16:15:28 INF] Request starting HTTP/1.1 GET http://localhost:5296/api/v1 - null null
+[16:15:28 INF] HTTP GET /api/v1 responded 404 in 0.6293 ms
+[16:15:28 INF] Request finished HTTP/1.1 GET http://localhost:5296/api/v1 - 404 0 null 2.3297ms
+[16:15:28 INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5296/api/v1, Response status code: 404
+[16:15:33 INF] Request starting HTTP/1.1 GET http://localhost:5296/api/v1 - null null
+[16:15:33 INF] HTTP GET /api/v1 responded 404 in 0.1956 ms
+[16:15:33 INF] Request finished HTTP/1.1 GET http://localhost:5296/api/v1 - 404 0 null 0.5268ms
+[16:15:33 INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5296/api/v1, Response status code: 404
+[16:17:33 INF] Request starting HTTP/1.1 OPTIONS http://localhost:5296/api/v1/auth/login - null null
+[16:17:33 INF] Executing endpoint '405 HTTP Method Not Supported'
+[16:17:33 INF] Executed endpoint '405 HTTP Method Not Supported'
+[16:17:33 INF] HTTP OPTIONS /api/v1/auth/login responded 405 in 0.3885 ms
+[16:17:33 INF] Request finished HTTP/1.1 OPTIONS http://localhost:5296/api/v1/auth/login - 405 0 null 0.8678ms
+[16:17:35 INF] Request starting HTTP/1.1 POST http://localhost:5296/api/v1/auth/login - application/json 2
+[16:17:35 INF] Executing endpoint 'HTTP: POST /api/v1/auth/login'
+[16:17:35 INF] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."FullName", u."IsActive", u."LastLoginAt", u."PasswordHash", u."RefreshToken", u."RefreshTokenExpiresAt", u."RoleId", u."SchoolId", u."UpdatedAt", r."Id", r."CreatedAt", r."Description", r."Name", r."UpdatedAt"
+FROM users AS u
+INNER JOIN roles AS r ON u."RoleId" = r."Id"
+WHERE FALSE
+LIMIT 1
+[16:17:35 INF] Setting HTTP status code 401.
+[16:17:35 INF] Executed endpoint 'HTTP: POST /api/v1/auth/login'
+[16:17:35 INF] HTTP POST /api/v1/auth/login responded 401 in 254.1017 ms
+[16:17:35 INF] Request finished HTTP/1.1 POST http://localhost:5296/api/v1/auth/login - 401 0 null 260.6485ms
+[16:17:38 INF] Request starting HTTP/1.1 GET http://localhost:5296/swagger/v1/swagger.json - null null
+[16:17:38 INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+[16:17:38 INF] HTTP GET /swagger/v1/swagger.json responded 200 in 90.8119 ms
+[16:17:38 INF] Request finished HTTP/1.1 GET http://localhost:5296/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 91.0694ms

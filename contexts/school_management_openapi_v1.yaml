@@ -1,0 +1,186 @@
+openapi: 3.0.3
+info:
+  title: School Management API
+  version: 1.0.0
+  description: Initial API contract for School Management Platform
+
+servers:
+  - url: /api/v1
+
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+
+    ApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+
+    PagedResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        total:
+          type: integer
+
+    Student:
+      type: object
+      properties:
+        id:
+          type: string
+        admissionNumber:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+
+    Enrollment:
+      type: object
+      properties:
+        studentId:
+          type: string
+        sessionId:
+          type: string
+        classId:
+          type: string
+        sectionId:
+          type: string
+
+paths:
+
+  /auth/login:
+    post:
+      summary: Login
+      requestBody:
+        required: true
+      responses:
+        '200':
+          description: Success
+
+  /students:
+
+    get:
+      summary: List students
+      responses:
+        '200':
+          description: Student list
+
+    post:
+      summary: Create student
+      responses:
+        '201':
+          description: Created
+
+  /students/{id}:
+
+    get:
+      summary: Student details
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+
+      responses:
+        '200':
+          description: OK
+
+  /students/{id}/parents:
+
+    post:
+      summary: Assign parent
+
+  /academic/enrollments:
+
+    post:
+      summary: Create enrollment
+
+  /academic/promotions:
+
+    post:
+      summary: Promote student
+
+  /academic/section-transfer:
+
+    post:
+      summary: Transfer section
+
+  /behaviour/templates:
+
+    get:
+      summary: Behaviour templates
+
+  /behaviour/sheets:
+
+    post:
+      summary: Submit sheet
+
+    get:
+      summary: Get sheets
+
+  /behaviour/review:
+
+    post:
+      summary: Review submission
+
+  /certificates:
+
+    get:
+      summary: List certificates
+
+    post:
+      summary: Issue certificate
+
+  /gatepass:
+
+    post:
+      summary: Create gate pass
+
+  /finance/fee-schedules:
+
+    get:
+      summary: List schedules
+
+  /reference/religions:
+
+    get:
+      summary: List religions
+
+  /reference/classes:
+
+    get:
+      summary: List classes
+
+  /mobile/parent/dashboard:
+
+    get:
+      summary: Parent dashboard
+
+  /mobile/parent/children:
+
+    get:
+      summary: Children
+
+  /mobile/parent/behaviour:
+
+    get:
+      summary: Behaviour history
+
+  /health:
+
+    get:
+      summary: Health endpoint

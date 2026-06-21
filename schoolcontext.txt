@@ -1,0 +1,812 @@
+SYSTEM CONTEXT — SCHOOL MANAGEMENT PLATFORM (v1.0)
+
+You are building a production-grade School Management Platform.
+
+This project is a replacement of an existing legacy desktop/web application currently used by a school.
+
+The new system must support:
+
+Web Admin Portal
+Parent Mobile App (Android/iOS)
+Future Teacher Portal
+Multi-school support (SaaS-ready)
+Multi-session academic years
+Behaviour tracking
+Certificates
+Student lifecycle management
+
+The system must be designed for long-term extensibility.
+
+Do NOT overengineer.
+
+Prefer modular monolith.
+
+Technology Stack
+
+Backend:
+
+ASP.NET Core (.NET 9)
+Minimal API
+EF Core
+PostgreSQL
+
+Web:
+
+React
+TypeScript
+Vite
+TanStack Query
+React Hook Form
+
+Mobile:
+
+React Native
+Expo
+
+Auth:
+
+ASP.NET Identity
+JWT
+Refresh Tokens
+
+Storage:
+
+S3-compatible storage
+
+Notifications:
+
+Firebase
+
+Deployment:
+
+Docker
+CI/CD ready
+Architecture
+
+Use Modular Monolith + Clean Architecture (lightweight)
+
+Structure:
+
+src/
+
+Api/
+
+Modules/
+  Academic/
+  Student/
+  Finance/
+  Operations/
+  Behaviour/
+  Identity/
+  Reference/
+
+Shared/
+
+Infrastructure/
+
+Each module:
+
+Module
+
+Domain/
+Application/
+Infrastructure/
+Contracts/
+
+Avoid:
+
+CQRS everywhere
+MediatR everywhere
+Microservices
+DDD ceremony
+
+Use:
+
+Service classes
+Repository only when useful
+EF directly where practical
+Multi Tenancy
+
+System supports multiple schools.
+
+Every aggregate root contains:
+
+SchoolId
+
+except global configuration.
+
+Query isolation required.
+
+Example:
+
+WHERE SchoolId=@schoolId
+Domain Model
+Identity
+User
+Id
+SchoolId
+Email
+PasswordHash
+
+RoleId
+
+CreatedAt
+Role
+SuperAdmin
+SchoolAdmin
+Teacher
+Parent
+Student
+Reference Module
+
+Reference data changes rarely.
+
+AcademicSession
+Id
+SchoolId
+
+Name
+
+StartDate
+EndDate
+
+IsActive
+
+Example:
+
+2025-26
+2026-27
+ClassGroup
+
+Examples:
+
+PRE PRIMARY
+PRIMARY
+MIDDLE
+HIGH
+
+Fields:
+
+Id
+SchoolId
+
+Name
+
+AdmissionPrefix
+
+SequenceNo
+
+Sequence controls academic ordering.
+
+Class
+
+Examples:
+
+NURSERY
+LKG
+UKG
+1ST
+...
+10TH
+
+Fields:
+
+Id
+SchoolId
+
+ClassGroupId
+
+Name
+
+SequenceNo
+
+Constraints:
+
+unique(ClassGroupId, SequenceNo)
+Section
+
+Examples:
+
+A
+B
+BLUE
+GREEN
+
+Fields:
+
+Id
+
+ClassId
+
+Name
+
+Capacity
+House
+
+Examples:
+
+Khadeejah
+
+Fields:
+
+Id
+SchoolId
+
+Name
+
+Color
+ScholarType
+
+Examples:
+
+Day Scholar
+New
+
+Fields:
+
+Id
+SchoolId
+
+Name
+
+IsDefault
+Religion
+
+Fields:
+
+Id
+SchoolId
+
+Name
+Caste
+
+Fields:
+
+Id
+SchoolId
+
+Name
+
+IsReservedCategory
+Qualification
+
+Used by:
+
+Parent
+Teacher
+Staff
+
+Fields:
+
+Id
+SchoolId
+
+Name
+Occupation
+
+Fields:
+
+Id
+SchoolId
+
+Name
+ParentDesignation
+
+Examples:
+
+Doctor
+Teacher
+
+Fields:
+
+Id
+SchoolId
+
+Name
+Geography
+
+Hierarchy:
+
+State
+ ↓
+District
+ ↓
+City
+State
+Id
+Name
+Code
+District
+Id
+
+StateId
+
+Name
+City
+Id
+
+DistrictId
+
+Name
+
+PinCode
+
+StdCode
+Student Module
+Student
+
+Represents permanent student identity.
+
+Do NOT store class or section here.
+
+Fields:
+
+Id
+
+SchoolId
+
+AdmissionNumber
+
+ScholarTypeId
+
+FirstName
+MiddleName
+LastName
+
+SecondaryLanguageName
+
+Gender
+
+DOB
+
+ReligionId
+CasteId
+
+Phone
+SmsPhone
+
+Email
+
+BoardRegistrationNumber
+
+Remarks
+
+CreatedAt
+Parent
+
+Fields:
+
+Id
+
+SchoolId
+
+FirstName
+LastName
+
+QualificationId
+
+OccupationId
+
+DesignationId
+
+Phone
+
+Email
+
+OfficeAddress
+StudentParent
+
+Many-to-many.
+
+Fields:
+
+StudentId
+
+ParentId
+
+Relationship
+
+Values:
+
+Father
+Mother
+Guardian
+Address
+
+Fields:
+
+Id
+
+StudentId
+
+AddressType
+
+Line1
+
+CityId
+
+Types:
+
+Permanent
+Correspondence
+StudentDocument
+
+Fields:
+
+Id
+
+StudentId
+
+DocumentType
+
+StoragePath
+StudentStatusHistory
+
+Fields:
+
+Id
+
+StudentId
+
+Status
+
+EffectiveDate
+
+Reason
+
+Values:
+
+Active
+Left
+Transferred
+Graduated
+
+Never delete students.
+
+Academic Module
+StudentEnrollment
+
+Current academic placement.
+
+Fields:
+
+Id
+
+StudentId
+
+AcademicSessionId
+
+ClassId
+
+SectionId
+
+RollNumber
+
+Status
+
+Only one active enrollment.
+
+EnrollmentHistory
+
+Tracks movement.
+
+Fields:
+
+Id
+
+StudentEnrollmentId
+
+ActionType
+
+OldClassId
+OldSectionId
+
+NewClassId
+NewSectionId
+
+ChangedAt
+
+Reason
+
+Action:
+
+Admitted
+Promoted
+SectionChanged
+Left
+Returned
+ClassInchargeAssignment
+
+Fields:
+
+Id
+
+AcademicSessionId
+
+ClassId
+
+SectionId
+
+TeacherId
+Teacher
+
+Fields:
+
+Id
+
+Code
+
+Name
+
+Mobile
+
+Email
+
+SignaturePath
+Finance Module
+
+Partial (not fully discovered)
+
+FeeSchedule
+
+Fields:
+
+Id
+
+SchoolId
+
+Name
+
+Month
+
+Amount
+StudentFeeAssignment
+
+Fields:
+
+Id
+
+StudentEnrollmentId
+
+FeeScheduleId
+Operations
+CertificateTemplate
+
+Fields:
+
+Id
+
+SchoolId
+
+Name
+
+TemplatePath
+StudentCertificate
+
+Fields:
+
+Id
+
+StudentId
+
+CertificateTemplateId
+
+CertificateNumber
+
+IssueDate
+
+Remarks
+
+IsFeeCertificate
+GatePass
+
+Fields:
+
+Id
+
+GatePassNumber
+
+Type
+
+IssuedAt
+
+Reason
+
+Types:
+
+Student
+Employee
+StudentGatePass
+
+Fields:
+
+Id
+
+GatePassId
+
+StudentId
+
+AccompaniedBy
+
+Relation
+Behaviour Module
+
+Parent mobile feature.
+
+BehaviourTemplate
+
+Fields:
+
+Id
+
+SchoolId
+
+Name
+BehaviourItem
+
+Examples:
+
+Fajr
+Zuhar
+Asr
+Maghrib
+Isha
+
+Quranic Recitation
+
+Obeying Parents
+
+Respecting Elders
+
+Greeting Salaam
+
+Homework
+
+Fields:
+
+Id
+
+TemplateId
+
+Name
+
+DisplayOrder
+
+InputType
+BehaviourSheet
+
+Monthly.
+
+Fields:
+
+Id
+
+StudentId
+
+Month
+
+Year
+
+ParentId
+
+Status
+BehaviourEntry
+
+Fields:
+
+Id
+
+SheetId
+
+DayNo
+
+BehaviourItemId
+
+Value
+API Design
+
+Endpoints:
+
+/identity
+
+/students
+
+/parents
+
+/enrollments
+
+/promotions
+
+/attendance
+
+/certificates
+
+/behaviour
+
+Use:
+
+GET
+POST
+PUT
+DELETE
+
+Prefer pagination.
+
+UI Requirements
+
+Admin:
+
+Dashboard
+
+Admissions
+
+Students
+
+Academic
+
+Fees
+
+Reports
+
+Certificates
+
+Parent App:
+
+Login
+
+Children
+
+Behaviour
+
+Attendance
+
+Notifications
+Constraints
+
+Do NOT:
+
+Store roll number in Student
+Store class in Student
+Delete students
+Duplicate State/District/City in Address
+Hardcode religion/caste
+Use local file paths
+Unknown / To Validate Later
+
+Not enough evidence yet:
+
+Fees
+
+Attendance
+
+Health
+
+Subjects
+
+Reports
+
+Transfer Certificate
+
+Design extension points.
+
+Generate:
+
+Solution structure
+EF entities
+Migrations
+Minimal APIs
+DTOs
+React Admin
+React Native Parent App
+Seed Data
+Docker
+Auth
+
+Build incrementally beginning with:
+
+Reference
+→ Student
+→ Academic
+→ Behaviour
+
+This context is strong enough to start generating production code without locking you into the legacy UI.

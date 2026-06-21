@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "School Parent",
+    "slug": "school-parent",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": { "image": "./assets/splash.png", "resizeMode": "contain", "backgroundColor": "#1677ff" },
+    "ios": { "supportsTablet": true, "bundleIdentifier": "com.school.parent" },
+    "android": { "adaptiveIcon": { "foregroundImage": "./assets/adaptive-icon.png", "backgroundColor": "#1677ff" }, "package": "com.school.parent" },
+    "extra": { "apiUrl": "http://localhost:5000/api/v1" }
+  }
+}
