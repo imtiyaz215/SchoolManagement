@@ -1,2 +1,1 @@
 # SchoolManagement
-School amangement system
