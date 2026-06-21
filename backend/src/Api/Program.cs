@@ -90,7 +90,17 @@ try
 
     app.MapModules();
 
-    await Seeder.SeedAsync(app.Services);
+    if (app.Environment.IsDevelopment())
+    {
+        try
+        {
+            await Seeder.SeedAsync(app.Services);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Database seeding failed");
+        }
+    }
 
     app.Run();
 }
