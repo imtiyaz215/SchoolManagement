@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # School Management Platform
 
 Production-grade school management platform replacing the legacy school system.
@@ -111,3 +112,7 @@ All endpoints under `/api/v1`.
 - Phase 2 ✅ Behaviour
 - Phase 3 ◻ Finance, Operations (scaffolded)
 - Phase 4 ◻ Mobile parent (shell complete, screens stubbed)
+=======
+# SchoolManagement
+School amangement system
+>>>>>>> 8a53cea23f383976c7cb3ea08227f07fbcec18ad
